@@ -19,6 +19,12 @@ class GenerateRandomQuoteController extends GetxController {
     Quote randomQuote = Quote.fromJson(decodedData);
     return randomQuote;
   }
+
+  void displayQuoteInfo() async {
+    Quote randomQuote = await getRandomQuote();
+    _quote.value = randomQuote.quote;
+    _author.value = randomQuote.author;
+  }
 }
 
 class Quote {
