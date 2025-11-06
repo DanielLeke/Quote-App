@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,11 +10,14 @@ class GenerateRandomQuoteController extends GetxController {
   String get quote => _quote.value;
   String get author => _author.value;
 
-  Future<void> getRandomQuote() async {
+  Future<Quote> getRandomQuote() async {
     final serverUrl = Uri.parse(
       "https://quote-app-backend-d8ga.onrender.com/randomquote",
     );
     final quoteInfo = await http.get(serverUrl);
+    final decodedData = json.decode(quoteInfo.body);
+    Quote randomQuote = Quote.fromJson(decodedData);
+    return randomQuote;
   }
 }
 
