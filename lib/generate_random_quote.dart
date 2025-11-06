@@ -53,12 +53,18 @@ class GenerateQuoteBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: (){},
-      style: ButtonStyle(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF269AA2),
+        fixedSize: Size(298, 78),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8)
+        )
       ), 
       child: Text(
         "Generate Quote",
         style: TextStyle(
-          color: Colors.white
+          color: Colors.white,
+          fontSize: 24,
         ),
       )
     );
