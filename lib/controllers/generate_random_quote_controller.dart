@@ -15,3 +15,17 @@ class GenerateRandomQuoteController extends GetxController {
     final quoteInfo = await http.get(serverUrl);
   }
 }
+
+class Quote {
+  final String quote;
+  final String author;
+
+  Quote({required this.quote, required this.author});
+
+  factory Quote.fromJson(Map<String, dynamic> jsonData) {
+    final String quote = jsonData['quote'];
+    final String author = jsonData['author'];
+
+    return Quote(quote: quote, author: author);
+  }
+}
