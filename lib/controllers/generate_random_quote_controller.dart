@@ -6,4 +6,8 @@ class GenerateRandomQuoteController extends GetxController {
 
   String get quote => _quote.value;
   String get author => _author.value;
+
+  void getRandomQuote() async {
+    final serverUrl = Uri.parse("https://quote-app-backend-d8ga.onrender.com/randomquote");
+  }
 }
