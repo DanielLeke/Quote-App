@@ -27,12 +27,40 @@ class BackgroundImage extends StatelessWidget {
           fit: BoxFit.cover
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          QuoteDisplay()
-        ],
+      child: Center(
+        child: Container(
+          height: 298,
+          width: 369,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              QuoteDisplay(),
+              GenerateQuoteBtn()
+            ],
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class GenerateQuoteBtn extends StatelessWidget {
+  const GenerateQuoteBtn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: (){},
+      style: ButtonStyle(
+      ), 
+      child: Text(
+        "Generate Quote",
+        style: TextStyle(
+          color: Colors.white
+        ),
+      )
     );
   }
 }
