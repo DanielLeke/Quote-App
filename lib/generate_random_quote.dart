@@ -28,15 +28,13 @@ class BackgroundImage extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              QuoteDisplay(),
-              SizedBox(height: 107),
-              GenerateQuoteBtn(),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            QuoteDisplay(),
+            SizedBox(height: 107),
+            GenerateQuoteBtn(),
+          ],
         ),
       ),
     );
@@ -52,8 +50,6 @@ class GenerateQuoteBtn extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         randomQuoteController.displayQuoteInfo();
-        print(randomQuoteController.quote);
-        print(randomQuoteController.author);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFF269AA2),
