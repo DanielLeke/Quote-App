@@ -1,20 +1,20 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quote_app/controllers/generate_random_quote_controller.dart';
 
 class GenerateRandomQuote extends StatelessWidget {
   const GenerateRandomQuote({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BackgroundImage(),
-    );
+    Get.put(GenerateRandomQuoteController());
+    return Scaffold(body: BackgroundImage());
   }
 }
 
 class BackgroundImage extends StatelessWidget {
-  const BackgroundImage({
-    super.key,
-  });
+  const BackgroundImage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class BackgroundImage extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/actual quote app background.jpeg'),
-          fit: BoxFit.cover
+          fit: BoxFit.cover,
         ),
       ),
       child: Center(
@@ -33,10 +33,8 @@ class BackgroundImage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               QuoteDisplay(),
-              SizedBox(
-                height: 107,
-              ),
-              GenerateQuoteBtn()
+              SizedBox(height: 107),
+              GenerateQuoteBtn(),
             ],
           ),
         ),
@@ -46,28 +44,26 @@ class BackgroundImage extends StatelessWidget {
 }
 
 class GenerateQuoteBtn extends StatelessWidget {
-  const GenerateQuoteBtn({
-    super.key,
-  });
+  const GenerateQuoteBtn({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final randomQuoteController = Get.find<GenerateRandomQuoteController>();
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: () {
+        randomQuoteController.displayQuoteInfo();
+        print(randomQuoteController.quote);
+        print(randomQuoteController.author);
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFF269AA2),
         fixedSize: Size(298, 78),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8)
-        )
-      ), 
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
       child: Text(
         "Generate Quote",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-        ),
-      )
+        style: TextStyle(color: Colors.white, fontSize: 24),
+      ),
     );
   }
 }
@@ -79,23 +75,17 @@ class QuoteDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 298,
-      height: 184,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.white
+        color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top:24.0, left: 24, right: 24),
+        padding: const EdgeInsets.only(top: 24.0, left: 24, right: 24),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                QuoteText(),
-              ],
-            ),
-            AuthorDisplay()
+            Flexible(child: QuoteText()),
+            AuthorDisplay(),
           ],
         ),
       ),
@@ -104,17 +94,21 @@ class QuoteDisplay extends StatelessWidget {
 }
 
 class QuoteText extends StatelessWidget {
-  const QuoteText({
-    super.key,
-  });
+  const QuoteText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      "Quote Text",
-      style: TextStyle(
-        fontSize: 32
-      ),
+    final randomQuoteController = Get.find<GenerateRandomQuoteController>();
+    return Obx(() => AutoSizeText(
+        randomQuoteController.quote.isNotEmpty
+            ? randomQuoteController.quote.toString()
+            : "Quote Text",
+        style: TextStyle(
+          fontSize: 34,
+        ),
+        textAlign: TextAlign.center,
+        maxLines: 4,
+        minFontSize: 16)
     );
   }
 }
@@ -124,16 +118,18 @@ class AuthorDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final randomQuoteController = Get.find<GenerateRandomQuoteController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top:8.0),
-          child: Text(
-            "-author",
-            style: TextStyle(
-              fontSize: 16,
-              color: Color(0xFF414141)
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Obx(
+            () => Text(
+              randomQuoteController.author.isNotEmpty
+                  ? randomQuoteController.author
+                  : "-author",
+              style: TextStyle(fontSize: 16, color: Color(0xFF414141)),
             ),
           ),
         ),
