@@ -29,12 +29,13 @@ class BackgroundImage extends StatelessWidget {
       ),
       child: Center(
         child: Container(
-          height: 298,
-          width: 369,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               QuoteDisplay(),
+              SizedBox(
+                height: 107,
+              ),
               GenerateQuoteBtn()
             ],
           ),
